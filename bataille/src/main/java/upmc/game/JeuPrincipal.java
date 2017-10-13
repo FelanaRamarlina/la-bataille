@@ -1,21 +1,15 @@
 package upmc.game;
-import static java.io.FileDescriptor.out;
-import static java.lang.System.out;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import static sun.misc.MessageUtils.out;
 
 public class JeuPrincipal {
     private Joueur joueur1;
     private Joueur joueur2;
     private Paquet paquet;
 
-    /**
-     *
-     */
-    public JeuPrincipal
-            /*test*/
+
+    public JeuPrincipal() {
         /*initialisation*/
         System.out.println("* Jeu de la Bataille *\n");
 
