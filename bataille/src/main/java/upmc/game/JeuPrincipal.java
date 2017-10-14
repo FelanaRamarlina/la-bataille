@@ -1,6 +1,5 @@
 package upmc.game;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class JeuPrincipal {
@@ -67,9 +66,10 @@ public class JeuPrincipal {
         /*Tant qu'un des joueurs n'a pas décidé de quitter la partie,
         ou que le paquet d'un des joueurs n'est pas vide, la partie continue*/
         while(this.choix !=2 && this.choix!=1 && this.joueur1.getPaquet().isEmpty() ==false && this.joueur2.getPaquet().isEmpty() ==false) {
+            this.afficherScore();
             this.actionJoueur();  
             if(this.choix==1) {
-                this.partie();  
+                this.partie();                  
             }
         }
        this.finDuJeu();
@@ -99,14 +99,12 @@ public class JeuPrincipal {
         }
         
         /*On compare les cartes si les deux joueurs ont tiré une carte*/
-        if (this.attack % 2 == 0) {
-            carteRetiree1.setValeur(1);
-            carteRetiree2.setValeur(1);
+        if (this.attack % 2 == 0) {            
             /*bataille*/
             if(carteRetiree1.getValeur()!=carteRetiree2.getValeur()) {
-               this.gagnerPoint(carteRetiree1,carteRetiree2); 
+                this.gagnerPoint(carteRetiree1,carteRetiree2);                
             }else{
-                this.bataille(carteRetiree1,carteRetiree2);
+                this.bataille(carteRetiree1,carteRetiree2);               
             }
         }
         this.tour++;
@@ -116,26 +114,23 @@ public class JeuPrincipal {
         if (c1.superieur(c2)) {
             this.joueur1.ajouter(c1);
             this.joueur1.ajouter(c2);
-            this.joueur1.addPoint();
-        } else if (c1.inferieur(c2)) {
+            this.joueur1.addPoint(1);
+        } else{
             this.joueur2.ajouter(c1);
             this.joueur2.ajouter(c2);
-            this.joueur2.addPoint();
+            this.joueur2.addPoint(1);
         }
     }
 
     /*bataille*/
     public void bataille(Carte c1, Carte c2){
-        System.out.println("Bataille!");
+        System.out.println("\n** Bataille! **\n");
         this.choix=0;
         this.tour=1;
         boolean egaux = true;
         ArrayList<Carte> stock = new ArrayList<Carte>();
         stock.add(c1);
         stock.add(c2);
-        
-        System.out.println(this.choix);
-        System.out.println(this.tour);
         /*tant que les cartes tirés des joueurs sont identiques, la bataille continue*/
         while (this.choix !=2 && this.choix!=1 && egaux == true) {
             System.out.println(egaux);
@@ -173,11 +168,13 @@ public class JeuPrincipal {
             System.out.println("\n** "+this.joueur1.getPseudo() + " a gagné la bataille! **\n");
             for (int i = 0; i < stock.size(); i++) {
                 this.joueur1.ajouter(stock.get(i));
+                this.joueur1.addPoint(2);
             }
         }else{
-            System.out.println("\n** "+this.joueur1.getPseudo() + " a gagné la bataille! **\n");
+            System.out.println("\n** "+this.joueur2.getPseudo() + " a gagné la bataille! **\n");
             for (int i = 0; i < stock.size(); i++) {
-                this.joueur1.ajouter(stock.get(i));
+                this.joueur2.ajouter(stock.get(i));
+                this.joueur2.addPoint(2);
             }
         }
         
@@ -190,11 +187,13 @@ public class JeuPrincipal {
         System.out.println(this.joueur1.getPseudo()+": "+this.joueur1.getPoints()+" "+this.joueur2.getPseudo()+": "+this.joueur2.getPoints());
         System.out.println("");
     }
+    
     public void afficherVainqueur(){
         if(this.joueur1.getPoints()>this.joueur2.getPoints())
-            System.out.println("Le vainqueur de la partie est le Joueur 1! Bravo!");
+            System.out.println("Le vainqueur de la partie est "+this.joueur1.getPseudo()+" Bravo!");
         else
-            System.out.println("Le vainqueur de la partie est le Joueur 2! Bravo!");
+            System.out.println("Le vainqueur de la partie est "+this.joueur1.getPseudo()+" Bravo!");
+        this.afficherScore();
     }
     /*message erreur*/
     public void erreur(String libelle){
