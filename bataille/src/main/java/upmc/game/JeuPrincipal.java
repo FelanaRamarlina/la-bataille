@@ -60,17 +60,17 @@ public class JeuPrincipal {
         System.out.flush();
         Scanner console = new Scanner(System.in);
         this.choix = console.nextInt();
-        System.out.println("- -");
     }
     
     /*Lancement Menu*/
     public void menu(){ 
         /*Tant qu'un des joueurs n'a pas décidé de quitter la partie,
-        ou que les paquets des joueurs ne sont pas vide, la partie continue*/
+        ou que le paquet d'un des joueurs n'est pas vide, la partie continue*/
         while(this.choix !=2 && this.choix!=1 && this.joueur1.getPaquet().isEmpty() ==false && this.joueur2.getPaquet().isEmpty() ==false) {
-            System.out.print(attack);
-            this.actionJoueur();            
-            this.partie();   
+            this.actionJoueur();  
+            if(this.choix==1) {
+                this.partie();  
+            }
         }
        this.finDuJeu();
     }
@@ -80,33 +80,36 @@ public class JeuPrincipal {
         Carte carteRetiree1 = new Carte(0,"");
         Carte carteRetiree2 = new Carte(0,"");
         /*On tire une carte du joueur 1 ou 2 selon le tour*/
-        if(this.choix==1) {
-            if (this.tour % 2 != 0) {
-                carteRetiree1 = this.joueur1.getPaquet().get(0);
-                this.joueur1.tirer(carteRetiree1);
-                System.out.println(carteRetiree1.toString() + "\n");
-                this.choix = 0;
-                this.attack++;
-            }else {
-                carteRetiree2 = this.joueur2.getPaquet().get(0);
-                this.joueur2.tirer(carteRetiree2);
-                System.out.println(carteRetiree2.toString() + "\n");
-                this.choix = 0;
-                this.attack++;
-            }
+        if (this.tour % 2 != 0) {
+            carteRetiree1 = this.joueur1.getPaquet().get(0);
+            this.joueur1.tirer(carteRetiree1);
+            System.out.println("- - - - - - - - - - -");
+            System.out.print(carteRetiree1.toString() + "\n");
+            System.out.println("- - - - - - - - - - -");
+            this.choix = 0;
+            this.attack++;
+        }else {
+            carteRetiree2 = this.joueur2.getPaquet().get(0);
+            this.joueur2.tirer(carteRetiree2);
+            System.out.println("- - - - - - - - - - -");
+            System.out.print(carteRetiree2.toString() + "\n");
+            System.out.println("- - - - - - - - - - -");
+            this.choix = 0;
+            this.attack++;
+        }
+        
+        /*On compare les cartes si les deux joueurs ont tiré une carte*/
+        if (this.attack % 2 == 0) {
             carteRetiree1.setValeur(1);
             carteRetiree2.setValeur(1);
-            /*On compare les cartes si les deux joueurs ont tiré une carte*/
-            if (this.attack % 2 == 0) {
-               
-                this.gagnerPoint(carteRetiree1,carteRetiree2);
-                /*bataille*/
-                if(carteRetiree1==carteRetiree2) {
-                    this.bataille(carteRetiree1,carteRetiree2);
-                }
+            /*bataille*/
+            if(carteRetiree1.getValeur()!=carteRetiree2.getValeur()) {
+               this.gagnerPoint(carteRetiree1,carteRetiree2); 
+            }else{
+                this.bataille(carteRetiree1,carteRetiree2);
             }
-            this.tour++;
         }
+        this.tour++;
     }
     
     public void gagnerPoint(Carte c1, Carte c2){
@@ -124,44 +127,55 @@ public class JeuPrincipal {
     /*bataille*/
     public void bataille(Carte c1, Carte c2){
         System.out.println("Bataille!");
+        this.choix=0;
+        this.tour=1;
+        boolean egaux = true;
         ArrayList<Carte> stock = new ArrayList<Carte>();
         stock.add(c1);
         stock.add(c2);
-      
+        
+        System.out.println(this.choix);
+        System.out.println(this.tour);
         /*tant que les cartes tirés des joueurs sont identiques, la bataille continue*/
-        while (this.choix !=2 && this.choix!=1 && c1.getValeur() == c2.getValeur() && this.tour%2!=0) {
+        while (this.choix !=2 && this.choix!=1 && egaux == true) {
+            System.out.println(egaux);
             this.actionJoueur();
             if (this.choix == 1) {
                 if (this.tour % 2 != 0) {
                     c1 = this.joueur1.getPaquet().get(0);
                     this.joueur1.tirer(c1);
-                    System.out.println(c1.toString() + "\n");
+                    System.out.println("- - - - - - - - - - - ");
+                    System.out.print(c1.toString() + "\n");
+                    System.out.println("- - - - - - - - - - -");
                     stock.add(c1);
                     this.choix = 0;
+                    tour++;
                 } else {
                     c2 = this.joueur2.getPaquet().get(0);
                     this.joueur2.tirer(c2);
-                    System.out.println(c2.toString() + "\n");
+                    System.out.println("- - - - - - - - - - -");
+                    System.out.print(c2.toString() + "\n");
+                    System.out.println("- - - - - - - - - - -");
                     stock.add(c1);
-                    this.choix = 0;
-                    if(c2.getValeur()==c2.getValeur()) {
-                        this.tour++;
-                    } else{
-                        this.tour=1;
+                    this.choix = 0;                                 
+                    if(this.tour%2==0){
+                        if(c1.getValeur() != c2.getValeur())
+                            egaux = false;
                     }
-
-                }
+                    this.tour++;   
+                 }
             }
+            
         }
-        
+
         /*Gagnant de la bataille*/
         if (c1.superieur(c2)) {
-            System.out.println(this.joueur1.getPseudo() + " a gagné la bataille!");
+            System.out.println("\n** "+this.joueur1.getPseudo() + " a gagné la bataille! **\n");
             for (int i = 0; i < stock.size(); i++) {
                 this.joueur1.ajouter(stock.get(i));
             }
-        } else {
-            System.out.println(this.joueur1.getPseudo() + " a gagné la bataille!");
+        }else{
+            System.out.println("\n** "+this.joueur1.getPseudo() + " a gagné la bataille! **\n");
             for (int i = 0; i < stock.size(); i++) {
                 this.joueur1.ajouter(stock.get(i));
             }
