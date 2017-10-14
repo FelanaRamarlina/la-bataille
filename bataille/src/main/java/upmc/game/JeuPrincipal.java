@@ -130,7 +130,8 @@ public class JeuPrincipal {
         stock.add(c1);
         stock.add(c2);
         int tour=1;
-                        /*tant que les cartes tirés des joueurs sont identiques la bataille continue*/
+        
+        /*tant que les cartes tirés des joueurs sont identiques, la bataille continue*/
         while (c1.getValeur() == c2.getValeur() && tour%2!=0) {
             if (tour % 2 != 0) {
                 System.out.println("C'est à " + this.joueur1.getPseudo() + " de jouer");
