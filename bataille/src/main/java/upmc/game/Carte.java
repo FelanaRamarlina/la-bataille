@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bataille;
+package upmc.game;
 /**
  *Carte
  * @author licence
@@ -27,7 +27,9 @@ public class Carte {
         public int getValeur(){
             return this.valeur;
         }
-        public void setValeur(int val){ this.valeur = val; }
+        public void setValeur(int val){ 
+            this.valeur = val; 
+        }
         public String toString() {
             return  "Carte : "+this.valeur+" de "+this.couleur;
         }
