@@ -114,11 +114,11 @@ public class JeuPrincipal {
         if (c1.superieur(c2)) {
             this.joueur1.ajouter(c1);
             this.joueur1.ajouter(c2);
-            this.joueur1.addPoint(1);
+            this.joueur1.ajouterPoint(1);
         } else{
             this.joueur2.ajouter(c1);
             this.joueur2.ajouter(c2);
-            this.joueur2.addPoint(1);
+            this.joueur2.ajouterPoint(1);
         }
     }
 
@@ -168,13 +168,13 @@ public class JeuPrincipal {
             System.out.println("\n** "+this.joueur1.getPseudo() + " a gagné la bataille! **\n");
             for (int i = 0; i < stock.size(); i++) {
                 this.joueur1.ajouter(stock.get(i));
-                this.joueur1.addPoint(2);
+                this.joueur1.ajouterPoint(2);
             }
         }else{
             System.out.println("\n** "+this.joueur2.getPseudo() + " a gagné la bataille! **\n");
             for (int i = 0; i < stock.size(); i++) {
                 this.joueur2.ajouter(stock.get(i));
-                this.joueur2.addPoint(2);
+                this.joueur2.ajouterPoint(2);
             }
         }
         

@@ -30,7 +30,7 @@ public class Joueur {
         this.paquet.add(c);
     }
 
-    public void addPoint(int nb){
+    public void ajouterPoint(int nb){
         this.point = this.point+nb;
     }
     public int getPoints(){

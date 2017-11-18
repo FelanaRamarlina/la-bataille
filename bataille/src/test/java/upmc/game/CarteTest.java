@@ -5,6 +5,7 @@
  */
 package upmc.game;
 
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import upmc.game.Carte;
 import junit.framework.TestCase;
 
@@ -13,73 +14,30 @@ import junit.framework.TestCase;
  * @author licence
  */
 public class CarteTest extends TestCase {
+    private Carte carte;
     
-    public CarteTest(String testName) {
-        super(testName);
+    public void nouvelleCarte() {
+      carte = new Carte(2,"Pique");
     }
     
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-    
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-    /**
-     * Test of superieur method, of class Carte.
-     */
     public void testSuperieur() {
+        this.nouvelleCarte();
         System.out.println("superieur");
         Carte carteSup = new Carte(5,"Pique");                
-        Carte carte = new Carte(2,"Pique");
-        assertFalse(carte.superieur(carteSup));
+        assertTrue(carteSup.superieur(this.carte));
+        assertFalse(this.carte.superieur(carteSup));
+        assertFalse(carteSup == this.carte);
     }
 
-    /*
-  
-    public void testInferieur() {
-        System.out.println("inferieur");
-        Carte carte = null;
-        Carte instance = null;
-        boolean expResult = false;
-        boolean result = instance.inferieur(carte);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
- 
     public void testGetValeur() {
-        System.out.println("getValeur");
-        Carte instance = null;
-        int expResult = 0;
-        int result = instance.getValeur();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        this.nouvelleCarte();
+        assertEquals(this.carte.getValeur(),2);
     }
-
-    public void testSetValeur() {
-        System.out.println("setValeur");
-        int val = 0;
-        Carte instance = null;
-        instance.setValeur(val);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
     
-    public void testToString() {
-        System.out.println("toString");
-        Carte instance = null;
-        String expResult = "";
-        String result = instance.toString();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSetValeur() {
+        this.nouvelleCarte();
+        this.carte.setValeur(1);
+        assertFalse(this.carte.getValeur() == 2);
     }
-    */
+    
 }

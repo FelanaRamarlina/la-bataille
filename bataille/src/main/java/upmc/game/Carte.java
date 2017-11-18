@@ -20,14 +20,13 @@ public class Carte {
         public boolean superieur(Carte carte){
             return this.valeur>carte.valeur;
         }
-        public boolean inferieur(Carte carte){
-            return this.valeur<carte.valeur;
-        }
 
         public int getValeur(){
             return this.valeur;
         }
+ 
         public void setValeur(int val){ this.valeur = val; }
+        
         public String toString() {
             return  "Carte : "+this.valeur+" de "+this.couleur;
         }
