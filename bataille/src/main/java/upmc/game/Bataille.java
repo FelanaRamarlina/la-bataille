@@ -23,7 +23,7 @@ public class Bataille
   public static void main(String[] args)
   {
     /*System.out.println("C'est le jeu de la bataille!\n");
-    System.out.print("Veuillez entrer un choix : ");
+    System.out.print("Veuillez entrer un this.choix : ");
     System.out.flush();
     Scanner console = new Scanner(System.in);
     String choice = console.nextLine();
@@ -31,7 +31,7 @@ public class Bataille
     System.out.println("C'est terminé :-(\n\nIl n'y a pas beaucoup de fonctionnalités...");*/
 
     JeuPrincipal jeu = new JeuPrincipal();
-    jeu.attaque();
+    jeu.menu();
     jeu.afficherVainqueur();
   }
 }

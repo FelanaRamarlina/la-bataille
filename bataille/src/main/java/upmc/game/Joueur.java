@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bataille;
+package upmc.game;
 
 import java.util.ArrayList;
 
@@ -30,8 +30,8 @@ public class Joueur {
         this.paquet.add(c);
     }
 
-    public void addPoint(){
-        this.point++;
+    public void addPoint(int nb){
+        this.point = this.point+nb;
     }
     public int getPoints(){
         return this.point;
