@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package upmc.game;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author licence
- */
 public class Joueur {
     private ArrayList<Carte> paquet;
     private int point;
@@ -22,12 +13,12 @@ public class Joueur {
         this.pseudo=nom;
     }
 
-    public void tirer(Carte c){
-        this.paquet.remove(c);
-    }
-
     public void ajouter(Carte c){
         this.paquet.add(c);
+    }
+    
+    public void tirer(Carte c){
+        this.paquet.remove(c);
     }
 
     public void ajouterPoint(int nb){
@@ -49,11 +40,11 @@ public class Joueur {
         return this.paquet;
     }
 
-    public int getPaquetSize(){
+    public int getPaquetTaille(){
         return this.paquet.size();
     }
     public void afficherPaquet(){
-        for (int i=0;i<this.getPaquetSize();i++){
+        for (int i=0;i<this.getPaquetTaille();i++){
             System.out.println(this.paquet.get(i).toString());
         }
     }
